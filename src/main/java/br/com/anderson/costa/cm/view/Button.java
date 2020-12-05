@@ -6,8 +6,10 @@ import main.java.br.com.anderson.costa.cm.model.ObserverField;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Button extends JButton implements ObserverField {
+public class Button extends JButton implements ObserverField, MouseListener {
 
     private Field field;
     private final Color BG_DEFAULT = new Color(184,184,184);
@@ -20,8 +22,8 @@ public class Button extends JButton implements ObserverField {
         setBorder(BorderFactory.createBevelBorder(0));
         setBackground(BG_DEFAULT);
         field.registerObserver(this);
+        addMouseListener(this);
     }
-
 
     @Override
     public void hasEvent(Field field, EventField event) {
@@ -46,5 +48,57 @@ public class Button extends JButton implements ObserverField {
     }
 
     private void doStyleOpen() {
+        setBackground(BG_DEFAULT);
+        setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+        switch (field.mineInNeighborhood()) {
+            case 1:
+                setForeground(GREEN_TEXT);
+                break;
+            case 2:
+                setForeground(Color.BLUE);
+                break;
+            case 3:
+                setForeground(Color.YELLOW);
+                break;
+            case 4:
+            case 5:
+            case 6:
+                setForeground(Color.RED);
+                break;
+            default:
+                setForeground(Color.PINK);
+        }
+        String valor = !field.safetyNeighborhood() ? field.mineInNeighborhood() + "" : "";
+        setText(valor);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.getButton() == 1) {
+            field.openField();
+        } else {
+            field.updatedCheck();
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

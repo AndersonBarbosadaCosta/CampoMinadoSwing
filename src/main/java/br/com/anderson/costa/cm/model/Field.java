@@ -102,7 +102,7 @@ public class Field {
         }
     }
 
-    void updatedCheck() {
+    public void updatedCheck() {
         if (!open) {
             checked = !checked;
         }
@@ -117,9 +117,8 @@ public class Field {
         mine = true;
     }
 
-    boolean openField() {
+    public boolean openField() {
         if (!open && !checked) {
-
             if (mine) {
              notifyObservers(EventField.EXPLOSION);
              return true;
@@ -134,7 +133,7 @@ public class Field {
         }
     }
 
-    boolean safetyNeighborhood() {
+   public boolean safetyNeighborhood() {
         return neighborhood.stream().noneMatch(v -> v.mine);
     }
 
@@ -144,8 +143,8 @@ public class Field {
         return unraveled || protect;
     }
 
-    long mineInNeighborhood() {
-        return neighborhood.stream().filter(v -> v.mine).count();
+   public int mineInNeighborhood() {
+        return (int)neighborhood.stream().filter(v -> v.mine).count();
     }
 
     boolean restart() {
