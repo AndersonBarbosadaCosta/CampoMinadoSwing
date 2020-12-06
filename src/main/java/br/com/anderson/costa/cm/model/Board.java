@@ -136,7 +136,7 @@ public class Board implements ObserverField {
     }
 
     private void showMines() {
-        fields.stream().filter(Field::isMine).forEach(p -> p.setOpen(true));
+        fields.stream().filter(Field::isMine).filter(c -> !c.isChecked()).forEach(p -> p.setOpen(true));
     }
 
     @Override

@@ -12,9 +12,14 @@ public class BoardPanel extends JPanel {
 
         setLayout(new GridLayout(board.getSizeRows(),board.getSizeColumns()));
         board.forEach(c -> add(new Button(c)));
+        board.registerObsever(e -> SwingUtilities.invokeLater(() -> {
+                if(e.isWinner()) {
+                    JOptionPane.showMessageDialog(null,"Ganhou :)");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Perdeu :(");
+                }
+                board.restartGame();
+            }));
 
-        board.registerObsever(e -> {
-            // implementar
-        });
     }
 }

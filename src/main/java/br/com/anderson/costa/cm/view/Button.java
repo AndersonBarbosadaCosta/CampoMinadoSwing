@@ -13,7 +13,7 @@ public class Button extends JButton implements ObserverField, MouseListener {
 
     private Field field;
     private final Color BG_DEFAULT = new Color(184,184,184);
-    private final Color BG_OPEN = new Color(8,179,247);
+    private final Color BG_CHECK = new Color(8,179,247);
     private final Color BG_EXPLOSE = new Color(189,66,68);
     private final Color GREEN_TEXT = new Color(0,100,0);
 
@@ -21,6 +21,7 @@ public class Button extends JButton implements ObserverField, MouseListener {
         this.field = field;
         setBorder(BorderFactory.createBevelBorder(0));
         setBackground(BG_DEFAULT);
+        setOpaque(true);
         field.registerObserver(this);
         addMouseListener(this);
     }
@@ -35,22 +36,46 @@ public class Button extends JButton implements ObserverField, MouseListener {
             case EXPLOSION:
                 doStyleExplosion();
                 break;
+            case CHECKED:
+                doStyleCheck();
+                break;
             default:
                 doStyleDefault();
                 break;
         }
+        SwingUtilities.invokeLater(() -> {
+            repaint();
+            validate();
+        });
+    }
+
+    private void doStyleCheck() {
+        setBackground(BG_CHECK);
+        setText("M");
+        setForeground(Color.BLACK);
     }
 
     private void doStyleDefault() {
+        setBorder(BorderFactory.createBevelBorder(0));
+        setBackground(BG_DEFAULT);
+        setText("");
     }
 
     private void doStyleExplosion() {
+        setBackground(BG_EXPLOSE);
+        setBorder(BorderFactory.createLineBorder(Color.RED));
+        setText("X");
+        setForeground(Color.WHITE);
     }
 
     private void doStyleOpen() {
-        setBackground(BG_DEFAULT);
         setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
+        if(field.isMine()) {
+            setBackground(BG_EXPLOSE);
+            setText("");
+            return;
+        }
+        setBackground(BG_DEFAULT);
         switch (field.mineInNeighborhood()) {
             case 1:
                 setForeground(GREEN_TEXT);

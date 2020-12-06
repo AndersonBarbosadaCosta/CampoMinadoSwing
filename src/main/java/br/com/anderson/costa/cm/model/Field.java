@@ -151,6 +151,7 @@ public class Field {
         open = false;
         mine = false;
         checked = false;
+        notifyObservers(EventField.RESTART);
         return false;
     }
 

@@ -16,7 +16,6 @@ public class MineField extends JFrame {
         BoardPanel boardPanel = new BoardPanel(board);
         add(boardPanel);
     }
-
     public static void main(String[] args) {
         new MineField();
     }
