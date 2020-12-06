@@ -14,7 +14,7 @@ public class Board implements ObserverField {
     private final int amountMine;
 
     private List<Field> fields = new ArrayList<>();
-    private List<Consumer<EventResult>> observers = new ArrayList<>();
+    private final List<Consumer<EventResult>> observers = new ArrayList<>();
 
     public Board(int sizeRows, int sizeColumns, int amountMine) {
         this.sizeRows = sizeRows;

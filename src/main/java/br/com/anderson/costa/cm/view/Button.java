@@ -11,7 +11,7 @@ import java.awt.event.MouseListener;
 
 public class Button extends JButton implements ObserverField, MouseListener {
 
-    private Field field;
+    private final Field field;
     private final Color BG_DEFAULT = new Color(184,184,184);
     private final Color BG_CHECK = new Color(8,179,247);
     private final Color BG_EXPLOSE = new Color(189,66,68);

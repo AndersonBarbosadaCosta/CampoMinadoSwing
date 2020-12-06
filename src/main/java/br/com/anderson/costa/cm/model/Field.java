@@ -15,7 +15,7 @@ public class Field {
     private boolean open;
     private boolean mine;
     private List<Field> neighborhood = new ArrayList<>();
-    private Set<ObserverField> observers = new LinkedHashSet<>();
+    private final Set<ObserverField> observers = new LinkedHashSet<>();
 
     Field(int row, int column) {
         this.row = row;
